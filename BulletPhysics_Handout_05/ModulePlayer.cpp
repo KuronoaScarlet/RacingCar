@@ -97,7 +97,7 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 6, -10);
+	vehicle->SetPos(0, 6, 10);
 	
 	return true;
 }
@@ -160,6 +160,14 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	vehicle->Render();
+
+	vec3 myCamera = vec3(vehicle->body->getCenterOfMassPosition().getX() + 1, vehicle->body->getCenterOfMassPosition().getY() + 6, vehicle->body->getCenterOfMassPosition().getZ() + 8);
+
+	App->camera->Position = myCamera;
+
+	vec3 dirCam = vec3(vehicle->body->getCenterOfMassPosition().getX() + 1, vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ() - 4);
+
+	App->camera->LookAt(dirCam);
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
