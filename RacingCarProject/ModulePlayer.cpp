@@ -161,13 +161,14 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
-	vec3 myCamera = vec3(vehicle->body->getCenterOfMassPosition().getX() + 1, vehicle->body->getCenterOfMassPosition().getY() + 6, vehicle->body->getCenterOfMassPosition().getZ() + 8);
-
+	vec3 myCamera;
+	myCamera.x = vehicle->body->getCenterOfMassPosition().getX() + vehicle->vehicle->getForwardVector().x() * -10;
+	myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 7;
+	myCamera.z = vehicle->body->getCenterOfMassPosition().getZ() + vehicle->vehicle->getForwardVector().z() * -10;
 	App->camera->Position = myCamera;
 
-	vec3 dirCam = vec3(vehicle->body->getCenterOfMassPosition().getX() + 1, vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ() - 4);
 
-	App->camera->LookAt(dirCam);
+	App->camera->LookAt(vec3(vehicle->body->getCenterOfMassPosition().getX(), vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ()));
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
