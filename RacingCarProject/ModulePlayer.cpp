@@ -17,8 +17,9 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
-
+	
 	VehicleInfo car;
+
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 2, 6);
@@ -96,8 +97,9 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
+	
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 6, 10);
+	vehicle->SetPos(0, 0, 10);
 	
 	return true;
 }
@@ -153,6 +155,11 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER(3);
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+	{
+		vehicle->Turn(90);
+		vehicle->SetPos(0, 6, 10);
 	}
 
 	vehicle->ApplyEngineForce(acceleration);

@@ -5,6 +5,8 @@
 #include "PhysVehicle3D.h"
 #include "Primitive.h"
 
+
+
 #ifdef _DEBUG
 	#pragma comment (lib, "Bullet/libx86/BulletDynamics_debug.lib")
 	#pragma comment (lib, "Bullet/libx86/BulletCollision_debug.lib")
@@ -210,6 +212,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 	btRigidBody* body = new btRigidBody(rbInfo);
 	PhysBody3D* pbody = new PhysBody3D(body);
+
 
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);

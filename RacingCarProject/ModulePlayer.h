@@ -20,7 +20,6 @@ public:
 	bool CleanUp();
 
 public:
-
 	PhysVehicle3D* vehicle;
 	float turn;
 	float acceleration;

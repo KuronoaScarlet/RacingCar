@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "PhysVehicle3D.h"
 
 #define MAX_SNAKE 2
 
@@ -20,6 +21,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+
 
 public:
 	/*
@@ -41,4 +43,22 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	PhysBody3D* cube;
+	PhysBody3D* cube2;
+	PhysBody3D* cube3;
+	PhysBody3D* cube4;
+	PhysBody3D* cube5;
+	PhysBody3D* cube6;
+	PhysBody3D* cube7;
+	PhysBody3D* cube8;
+	PhysBody3D* cube9;
+	PhysBody3D* cube10;
+	PhysBody3D* cube11;
+	PhysBody3D* cube12;
+
+
+	PhysBody3D* sensor;
+
+
 };
