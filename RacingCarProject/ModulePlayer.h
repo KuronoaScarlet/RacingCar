@@ -24,4 +24,10 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+	bool stop = false;
+	bool nextLevel = false;
+
+	bool level1 = true;
+	bool level2 = false;
+	bool level3 = false;
 };

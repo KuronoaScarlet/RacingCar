@@ -99,7 +99,8 @@ bool ModulePlayer::Start()
 
 	
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 0, 10);
+	vehicle->SetPos(0, 0, -100);
+	vehicle->body->setUserPointer(vehicle);
 	
 	return true;
 }
@@ -116,52 +117,70 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		if (acceleration < 0.0f)
+	if (!stop) {
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			acceleration = MAX_ACCELERATION + BRAKE_POWER(3);
+			if (acceleration < 0.0f)
+			{
+				acceleration = MAX_ACCELERATION + BRAKE_POWER(3);
+			}
+			if (acceleration >= 0.0f)
+			{
+				acceleration = MAX_ACCELERATION;
+			}
 		}
-		if (acceleration >= 0.0f)
-		{
-			acceleration = MAX_ACCELERATION;
-		}
-	}
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		if(turn > -TURN_DEGREES)
-			turn -= TURN_DEGREES;
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		if (acceleration > 0.0f)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			acceleration = -MAX_ACCELERATION - BRAKE_POWER(3);
+			if (turn < TURN_DEGREES)
+				turn += TURN_DEGREES;
 		}
-		if (acceleration <= 0.0f)
+
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
-			acceleration = -MAX_ACCELERATION;
+			if (turn > -TURN_DEGREES)
+				turn -= TURN_DEGREES;
 		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-	{
-		brake = BRAKE_POWER(3);
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			if (acceleration > 0.0f)
+			{
+				acceleration = -MAX_ACCELERATION - BRAKE_POWER(3);
+			}
+			if (acceleration <= 0.0f)
+			{
+				acceleration = -MAX_ACCELERATION;
+			}
+		}
+		if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		{
+			brake = BRAKE_POWER(3);
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 	{
+		stop = false;
 		vehicle->Turn(90);
-		vehicle->SetPos(0, 6, 10);
-	}
+		if (level1 == true) 
+		{
+			//vehicle->SetPos(0, 6, -100);
+			vehicle->SetPos(50, 30, -85);
+		}
+		if (level2 == true)
+		{
+			vehicle->SetPos(25, 6, -100);
+		}
+		if (level3 == true)
+		{
+			vehicle->SetPos(50, 6, -100);
+		}
 
+	}
+	if (nextLevel == true) 
+	{
+		brake = BRAKE_POWER(3);
+	}
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -170,7 +189,7 @@ update_status ModulePlayer::Update(float dt)
 
 	vec3 myCamera;
 	myCamera.x = vehicle->body->getCenterOfMassPosition().getX() + vehicle->vehicle->getForwardVector().x() * -10;
-	myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 7;
+	myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 5;
 	myCamera.z = vehicle->body->getCenterOfMassPosition().getZ() + vehicle->vehicle->getForwardVector().z() * -10;
 	App->camera->Position = myCamera;
 

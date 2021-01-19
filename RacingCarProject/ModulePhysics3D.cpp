@@ -240,6 +240,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
 
 	btRigidBody* body = new btRigidBody(rbInfo);
+	
 	PhysBody3D* pbody = new PhysBody3D(body);
 
 	body->setUserPointer(pbody);

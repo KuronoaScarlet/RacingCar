@@ -56,9 +56,21 @@ public:
 	PhysBody3D* cube10;
 	PhysBody3D* cube11;
 	PhysBody3D* cube12;
+	PhysBody3D* cube13;
+	PhysBody3D* cube14;
+	PhysBody3D* cube15;
+	PhysBody3D* cube16;
+	PhysBody3D* cube17;
+	PhysBody3D* cube18;
+	PhysBody3D* cube19;
+	PhysBody3D* cube20;
+
 
 
 	PhysBody3D* sensor;
+	PhysBody3D* sensorLevel2;
+	PhysBody3D* sensorStop;
+	PhysBody3D* sensorStop2;
 
 
 };
