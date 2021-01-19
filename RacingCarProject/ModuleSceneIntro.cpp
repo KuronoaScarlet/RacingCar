@@ -46,7 +46,23 @@ bool ModuleSceneIntro::Start()
 	sensorStop2->SetAsSensor(true);
 	sensorStop2->SetPos(50, 32, -85);
 
+	Cube cube_sensorLevel3(20, 1, 1);
+	sensorLevel3 = App->physics->AddBody(cube_sensorLevel3, 0.0f);
+	sensorLevel3->collision_listeners.add(this);
+	sensorLevel3->SetAsSensor(true);
+	sensorLevel3->SetPos(50, 10, 35);
 
+	//SpeedCube
+	Cube speed_cube(2, 2, 2);
+	speedCube = App->physics->AddBody(speed_cube, 0.0f);
+	speedCube->collision_listeners.add(this);
+	speedCube->SetAsSensor(true);
+	speedCube->SetPos(0, 2, -80);
+
+
+	
+
+	
 	
 
 	//Camera
@@ -91,7 +107,7 @@ bool ModuleSceneIntro::Start()
 	cube8->SetPos(25, 3, 100);
 	cube8->collision_listeners.add(this);
 
-	Cube c9(2, 5, 20);
+	Cube c9(2, 5, 30);
 	c9.SetRotation(90, { 0,1,0 });
 	cube9 = App->physics->AddBody(c9, 0);
 	cube9->SetPos(25, 3, 120);
@@ -159,7 +175,81 @@ update_status ModuleSceneIntro::Update(float dt)
 	//Plane
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
+	p.color = White;
 	p.Render();
+
+	Cube cube_sensor(20, 1, 1);
+	cube_sensor.SetPos(0, 2, 20);
+	cube_sensor.color = Blue;
+	cube_sensor.Render();
+
+	Cube cube_sensorLevel2(30, 1, 1);
+	cube_sensorLevel2.SetPos(25, 2, 20);
+	cube_sensorLevel2.color = Blue;
+	cube_sensorLevel2.Render();
+
+	Cube cube_sensorLevel3(20, 1, 1);
+	cube_sensorLevel3.SetPos(50, 10, 35);
+	cube_sensorLevel3.color = Blue;
+	cube_sensorLevel3.Render();
+
+
+	Cube c1(2, 5, 270);
+	c1.SetPos(10, 3, 20);
+	c1.color = White;
+	c1.Render();
+
+	Cube c2(2, 5, 270);
+	c2.SetPos(-10, 3, 20);
+	c2.color = White;
+	c2.Render();
+
+	Cube c4(2, 5, 20);
+	c4.SetRotation(90, { 0,1,0 });
+	c4.SetPos(0, 3, 120);
+	c4.color = White;
+	c4.Render();
+
+	Cube c5(2, 5, 20);
+	c5.SetRotation(90, { 0,1,0 });
+	c5.SetPos(0, 3, -115);
+	c5.color = White;
+	c5.Render();
+
+	Cube c6(2, 5, 270);
+	c6.SetPos(40, 3, 20);
+	c6.color = White;
+	c6.Render();
+
+	Cube c7(2, 5, 270);
+	c7.SetPos(15, 3, 20);
+	c7.color = White;
+	c7.Render();
+
+	Cube c9(2, 5, 30);
+	c9.SetRotation(90, { 0,1,0 });
+	c9.SetPos(25, 3, 120);
+	c9.color = White;
+	c9.Render();
+
+	Cube c10(2, 5, 30);
+	c10.SetRotation(90, { 0,1,0 });
+	c10.SetPos(25, 3, -115);
+	c10.color = White;
+	c10.Render();
+
+	Cube c11(1, 5, 1);
+	c11.SetRotation(90, { 0,1,0 });
+	c11.SetPos(25, 3, 95);
+	c11.color = White;
+	c11.Render();
+
+	Cube c12(2, 5, 8);
+	c12.SetRotation(45, { 0,1,0 });
+	c12.SetPos(20, 3, 100);
+	c12.color = Black;
+	c12.Render();
+
 
 	Cube c3(2, 7, 2);
 	c3.SetPos(0, 3, 100);
@@ -178,24 +268,38 @@ update_status ModuleSceneIntro::Update(float dt)
 	c19.color = Red;
 	c19.Render();
 	
-	GLDebugDrawString(xStart, yStart, text);
+	Cube speed_cube(2, 2, 2);
+	speed_cube.SetPos(0, 2, -80);
+	speed_cube.color = Green;
+	speed_cube.Render();
 
-	/*
-	//Track
-	Cube c1(1, 10, 50);
-	c1.SetPos(5, 0, 0);
-	c1.Render();
+	Cube c13(20, 30, 35);
+	c13.SetPos(50, 15, -85);
+	c13.color = White;
+	c13.Render();
 
-	Cube c2(1, 10, 60);
-	c2.SetPos(-5, 0, 0);
-	c2.Render();
+	Cube c14(20, 50, 2);
+	c14.SetRotation(125, { 1,0,0 });
+	c14.SetPos(50, 15, -47);
+	c14.color = White;
+	c14.Render();
 
-	Cube c3(1, 10, 5);
-	c3.SetPos(-5, 0, 50);
-	c3.SetRotation(30,vec3(0,-1,0));
-	c3.Render();*/
+	Cube c15(20, 80, 2);
+	c15.SetRotation(90, { 1,0,0 });
+	c15.SetPos(50, 2, 11);
+	c15.color = White;
+	c15.Render();
 
+	Cube c16(20, 20, 2);
+	c16.SetRotation(70, { 1,0,0 });
+	c16.SetPos(50, 5, 30);
+	c16.color = White;
+	c16.Render();
 
+	Cube c17(20, 20, 20);
+	c17.SetPos(50, 0, 80);
+	c17.color = White;
+	c17.Render();
 
 	
 
@@ -205,6 +309,11 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	LOG("Hit!");
+	if (body1 == speedCube && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube2 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->speedCube = true;
+
+	}
 	if (body1 == sensor && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = true;
@@ -236,9 +345,13 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	}
 	if (body1 == sensorStop2 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
-		/*App->player->nextLevel = false;
+		App->player->nextLevel = false;
 		App->player->level2 = false;
-		App->player->level3 = true;*/
+		App->player->level3 = true;
+	}
+	if (body1 == sensorLevel3 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->stop = true;
 	}
 
 }

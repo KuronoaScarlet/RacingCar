@@ -26,6 +26,7 @@ public:
 	float brake;
 	bool stop = false;
 	bool nextLevel = false;
+	bool speedCube = false;
 
 	bool level1 = true;
 	bool level2 = false;

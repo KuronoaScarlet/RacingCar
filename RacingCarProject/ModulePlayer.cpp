@@ -117,7 +117,8 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-	if (!stop) {
+	if (!stop) 
+	{
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
 			if (acceleration < 0.0f)
@@ -125,8 +126,16 @@ update_status ModulePlayer::Update(float dt)
 				acceleration = MAX_ACCELERATION + BRAKE_POWER(3);
 			}
 			if (acceleration >= 0.0f)
-			{
-				acceleration = MAX_ACCELERATION;
+			{				
+				if (speedCube == true)
+				{
+					acceleration = 15000.0f;
+					speedCube = false;
+				}
+				else
+				{
+					acceleration = MAX_ACCELERATION;
+				}
 			}
 		}
 
@@ -164,8 +173,7 @@ update_status ModulePlayer::Update(float dt)
 		vehicle->Turn(90);
 		if (level1 == true) 
 		{
-			//vehicle->SetPos(0, 6, -100);
-			vehicle->SetPos(50, 30, -85);
+			vehicle->SetPos(0, 6, -100);
 		}
 		if (level2 == true)
 		{
@@ -173,14 +181,14 @@ update_status ModulePlayer::Update(float dt)
 		}
 		if (level3 == true)
 		{
-			vehicle->SetPos(50, 6, -100);
+			vehicle->SetPos(50, 35, -85);
 		}
 
 	}
 	if (nextLevel == true) 
 	{
 		brake = BRAKE_POWER(3);
-	}
+	}	
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);

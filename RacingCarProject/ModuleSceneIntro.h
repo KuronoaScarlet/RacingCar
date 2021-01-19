@@ -66,9 +66,11 @@ public:
 	PhysBody3D* cube20;
 
 
-
+	PhysBody3D* speedCube;
+	PhysBody3D* speedCube2;
 	PhysBody3D* sensor;
 	PhysBody3D* sensorLevel2;
+	PhysBody3D* sensorLevel3;
 	PhysBody3D* sensorStop;
 	PhysBody3D* sensorStop2;
 

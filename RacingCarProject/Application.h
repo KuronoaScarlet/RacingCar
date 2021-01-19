@@ -16,6 +16,7 @@
 class Application
 {
 public:
+
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleAudio* audio;
