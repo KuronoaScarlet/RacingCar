@@ -323,6 +323,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		App->player->stop = false;
 		App->player->nextLevel = true;
 		App->player->vehicle->SetPos(25, 0, -100);
+		if (App->player->vehicle->body->getLinearVelocity() != 0)
+		{
+			App->player->vehicle->body->setAngularVelocity({ 0,0,0 });
+		}
+		if (App->player->vehicle->GetKmh() != 0)
+			App->player->vehicle->body->setLinearVelocity({ 0,0,0 });
 		
 	}
 	if (body1 == sensorStop && body2 == (PhysBody3D*)App->player->vehicle)
@@ -341,6 +347,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		App->player->stop = false;
 		App->player->nextLevel = true;
 		App->player->vehicle->SetPos(50, 30, -85);
+		if (App->player->vehicle->body->getLinearVelocity() != 0)
+		{
+			App->player->vehicle->body->setAngularVelocity({ 0,0,0 });
+		}
+		if (App->player->vehicle->GetKmh() != 0)
+			App->player->vehicle->body->setLinearVelocity({ 0,0,0 });
 
 	}
 	if (body1 == sensorStop2 && body2 == (PhysBody3D*)App->player->vehicle)

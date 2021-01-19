@@ -25,10 +25,10 @@ bool ModulePlayer::Start()
 	car.chassis_size.Set(2, 2, 6);
 	car.chassis_offset.Set(0, 2, 0);
 	car.mass = 500.0f;
-	car.suspensionStiffness = 15.88f;
-	car.suspensionCompression = 0.83f;
-	car.suspensionDamping = 0.88f;
-	car.maxSuspensionTravelCm = 1000.0f;
+	car.suspensionStiffness = 20.88f; //15.88f
+	car.suspensionCompression = 1.83f; //0.83f
+	car.suspensionDamping = 1.88f; //0.88f
+	car.maxSuspensionTravelCm = 1000.0f; //100.0f
 	car.frictionSlip = 50.5;
 	car.maxSuspensionForce = 6000.0f;
 
@@ -171,17 +171,24 @@ update_status ModulePlayer::Update(float dt)
 	{
 		stop = false;
 		vehicle->Turn(90);
+		vehicle->vehicle->resetSuspension();
+		if (vehicle->body->getLinearVelocity() != 0)
+		{
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+		}
+		if (vehicle->GetKmh() != 0)
+			vehicle->body->setLinearVelocity({ 0,0,0 });
 		if (level1 == true) 
 		{
-			vehicle->SetPos(0, 6, -100);
+			vehicle->SetPos(0, 0, -100);
 		}
 		if (level2 == true)
 		{
-			vehicle->SetPos(25, 6, -100);
+			vehicle->SetPos(25, 0, -100);
 		}
 		if (level3 == true)
 		{
-			vehicle->SetPos(50, 35, -85);
+			vehicle->SetPos(50, 30, -85);
 		}
 
 	}
