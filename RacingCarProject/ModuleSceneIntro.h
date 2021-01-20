@@ -96,6 +96,7 @@ public:
 	PhysBody3D* sensorStop;
 	PhysBody3D* sensorStop2;
 	PhysBody3D* sensorStop3;
+	PhysBody3D* sensorStop4;
 
 
 };

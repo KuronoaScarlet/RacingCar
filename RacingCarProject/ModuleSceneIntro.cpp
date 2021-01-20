@@ -59,11 +59,11 @@ bool ModuleSceneIntro::Start()
 	sensorLevel4->SetAsSensor(true);
 	sensorLevel4->SetPos(80, 2, -85);
 
-	/*Cube cube_sensorLevel2(30, 1, 1);
-	sensorLevel2 = App->physics->AddBody(cube_sensorLevel2, 0.0f);
-	sensorLevel2->collision_listeners.add(this);
-	sensorLevel2->SetAsSensor(true);
-	sensorLevel2->SetPos(25, 2, 20);*/
+	Cube cube_sensorStop4(40, 1, 1);
+	sensorStop4 = App->physics->AddBody(cube_sensorStop4, 0.0f);
+	sensorStop4->collision_listeners.add(this);
+	sensorStop4->SetAsSensor(true);
+	sensorStop4->SetPos(80, 2, 550);
 
 	//SpeedCube
 	Cube speed_cube(2, 2, 2);
@@ -95,6 +95,7 @@ bool ModuleSceneIntro::Start()
 	speedCube5->collision_listeners.add(this);
 	speedCube5->SetAsSensor(true);
 	speedCube5->SetPos(90, 2, 500);
+
 
 
 	//Camera
@@ -215,7 +216,17 @@ bool ModuleSceneIntro::Start()
 	Cube c25(40, 80, 2);
 	c25.SetRotation(80, { 1,0,0 });
 	cube25 = App->physics->AddBody(c25, 0);
-	cube25->SetPos(75, 0, 600);
+	cube25->SetPos(80, 0, 600);
+
+	Cube c26(2, 10, 2);
+	cube26 = App->physics->AddBody(c26, 0);
+	cube26->SetPos(70, 10, 780);
+	cube26->collision_listeners.add(this);
+
+	Cube c27(2, 40, 40);
+	c27.SetRotation(90, { 0,1,0 });
+	cube27 = App->physics->AddBody(c27, 0);
+	cube27->SetPos(80, 10, 1000);
 
 	return ret;
 }
@@ -251,6 +262,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	cube_sensorLevel3.SetPos(50, 10, 35);
 	cube_sensorLevel3.color = Blue;
 	cube_sensorLevel3.Render();
+
+	Cube cube_sensorLevel4(40, 1, 1);
+	cube_sensorLevel4.SetPos(80, 2, 550);
+	cube_sensorLevel4.color = Blue;
+	cube_sensorLevel4.Render();
 
 
 	Cube c1(2, 5, 270);
@@ -413,8 +429,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	c26.Render();
 
 	//Level 4
-	/*Cube c27(2, 10, 300);
-	c27.SetPos(100, 4, 40);
+	Cube c27(2, 50, 1200);
+	c27.SetPos(100, 4, 490);
 	c27.color = White;
 	c27.Render();
 
@@ -422,7 +438,38 @@ update_status ModuleSceneIntro::Update(float dt)
 	c28.SetRotation(90, { 0,1,0 });
 	c28.SetPos(75, 30, -110);
 	c28.color = White;
-	c28.Render();*/
+	c28.Render();
+
+	Cube c29(40, 80, 2);
+	c29.SetRotation(80, { 1,0,0 });
+	c29.SetPos(80, 0, 600);
+	c29.color = White;
+	c29.Render();
+
+	Cube c30(2, 10, 2);
+	c30.SetPos(70, 10, 780);
+	c30.color = Red;
+	c30.Render();
+
+	Cube c31(2, 40, 1200);
+	c31.SetRotation(90, { 0,0,1 });
+	c31.SetPos(80, 30, 490);
+	c31.color = White;
+	c31.Render();
+
+	Cube c32(0, 40, 1200);
+	c32.SetRotation(90, { 0,0,1 });
+	c32.SetPos(80, 0, 490);
+	c32.color = White;
+	c32.Render();
+
+	Cube c33(2, 40, 40);
+	c33.SetRotation(90, { 0,1,0 });
+	c33.SetPos(80, 10, 1000);
+	c33.color = White;
+	c33.Render();
+
+
 
 	return UPDATE_CONTINUE;
 }
@@ -500,6 +547,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		if (App->player->vehicle->GetKmh() != 0)
 			App->player->vehicle->body->setLinearVelocity({ 0,0,0 });
 
+	}
+	if (body1 == sensorStop4 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->stop = true;
 	}
 
 
