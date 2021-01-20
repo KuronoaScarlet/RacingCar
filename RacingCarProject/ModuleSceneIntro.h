@@ -86,6 +86,9 @@ public:
 
 	PhysBody3D* speedCube;
 	PhysBody3D* speedCube2;
+	PhysBody3D* speedCube3;
+	PhysBody3D* speedCube4;
+	PhysBody3D* speedCube5;
 	PhysBody3D* sensor;
 	PhysBody3D* sensorLevel2;
 	PhysBody3D* sensorLevel3;

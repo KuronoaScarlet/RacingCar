@@ -53,11 +53,11 @@ bool ModuleSceneIntro::Start()
 	sensorLevel3->SetPos(50, 10, 35);
 
 	//Sensor level 4
-	Cube cube_sensorLevel4(20, 1, 1);
+	Cube cube_sensorLevel4(40, 1, 1);
 	sensorLevel4 = App->physics->AddBody(cube_sensorLevel4, 0.0f);
 	sensorLevel4->collision_listeners.add(this);
 	sensorLevel4->SetAsSensor(true);
-	sensorLevel4->SetPos(70, 2, -85);
+	sensorLevel4->SetPos(80, 2, -85);
 
 	/*Cube cube_sensorLevel2(30, 1, 1);
 	sensorLevel2 = App->physics->AddBody(cube_sensorLevel2, 0.0f);
@@ -70,7 +70,7 @@ bool ModuleSceneIntro::Start()
 	speedCube = App->physics->AddBody(speed_cube, 0.0f);
 	speedCube->collision_listeners.add(this);
 	speedCube->SetAsSensor(true);
-	speedCube->SetPos(0, 2, -80);
+	speedCube->SetPos(0, 2, -50);
 
 	Cube speed_cube2(2, 2, 2);
 	speedCube2 = App->physics->AddBody(speed_cube2, 0.0f);
@@ -78,11 +78,24 @@ bool ModuleSceneIntro::Start()
 	speedCube2->SetAsSensor(true);
 	speedCube2->SetPos(55, 10, 30);
 
+	Cube speed_cube3(2, 2, 2);
+	speedCube3 = App->physics->AddBody(speed_cube3, 0.0f);
+	speedCube3->collision_listeners.add(this);
+	speedCube3->SetAsSensor(true);
+	speedCube3->SetPos(95, 2, 100);
 
-	
+	Cube speed_cube4(2, 2, 2);
+	speedCube4 = App->physics->AddBody(speed_cube4, 0.0f);
+	speedCube4->collision_listeners.add(this);
+	speedCube4->SetAsSensor(true);
+	speedCube4->SetPos(70, 2, 300);
 
-	
-	
+	Cube speed_cube5(2, 2, 2);
+	speedCube5 = App->physics->AddBody(speed_cube5, 0.0f);
+	speedCube5->collision_listeners.add(this);
+	speedCube5->SetAsSensor(true);
+	speedCube5->SetPos(90, 2, 500);
+
 
 	//Camera
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -175,9 +188,9 @@ bool ModuleSceneIntro::Start()
 	cube19->SetPos(57, 10, 80);
 	cube19->collision_listeners.add(this);
 
-	Cube c20(2, 70, 270);
+	Cube c20(2, 70, 1200);
 	cube20 = App->physics->AddBody(c20, 0);
-	cube20->SetPos(60, 4, 20);
+	cube20->SetPos(60, 4, 490);
 
 	Cube c21(2, 70, 20);
 	c21.SetRotation(90, { 0,1,0 });
@@ -188,6 +201,21 @@ bool ModuleSceneIntro::Start()
 	c22.SetRotation(90, { 0,1,0 });
 	cube22 = App->physics->AddBody(c22, 0);
 	cube22->SetPos(50, 30, -95);
+
+	//Level 4
+	Cube c23(2, 10, 1200);
+	cube23 = App->physics->AddBody(c23, 0);
+	cube23->SetPos(100, 4, 490);
+
+	Cube c24(2, 70, 48);
+	c24.SetRotation(90, { 0,1,0 });
+	cube24 = App->physics->AddBody(c24, 0);
+	cube24->SetPos(75, 30, -110);
+
+	Cube c25(40, 80, 2);
+	c25.SetRotation(80, { 1,0,0 });
+	cube25 = App->physics->AddBody(c25, 0);
+	cube25->SetPos(75, 0, 600);
 
 	return ret;
 }
@@ -299,8 +327,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	c19.color = Red;
 	c19.Render();
 	
-	Cube speed_cube(2, 2, 2);
-	speed_cube.SetPos(0, 2, -80);
+	Cube speed_cube(2, 0.2f, 4);
+	speed_cube.SetPos(0, 0, -50);
 	speed_cube.color = Green;
 	speed_cube.Render();
 
@@ -361,8 +389,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	speed_cube2.color = Green;
 	speed_cube2.Render();
 
-	Cube c23(2, 70, 270);
-	c23.SetPos(60, 4, 20);
+	Cube c23(2, 70, 1200);
+	c23.SetPos(60, 4, 490);
 	c23.color = White;
 	c23.Render();
 
@@ -384,13 +412,25 @@ update_status ModuleSceneIntro::Update(float dt)
 	c26.color = White;
 	c26.Render();
 
+	//Level 4
+	/*Cube c27(2, 10, 300);
+	c27.SetPos(100, 4, 40);
+	c27.color = White;
+	c27.Render();
+
+	Cube c28(2, 70, 48);
+	c28.SetRotation(90, { 0,1,0 });
+	c28.SetPos(75, 30, -110);
+	c28.color = White;
+	c28.Render();*/
+
 	return UPDATE_CONTINUE;
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	LOG("Hit!");
-	if (body1 == speedCube && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube2 && body2 == (PhysBody3D*)App->player->vehicle)
+	if (body1 == speedCube && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube2 && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube3 && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube4 && body2 == (PhysBody3D*)App->player->vehicle || body1 == speedCube5 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->speedCube = true;
 

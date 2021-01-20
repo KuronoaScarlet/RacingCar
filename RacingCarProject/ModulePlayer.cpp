@@ -184,7 +184,8 @@ update_status ModulePlayer::Update(float dt)
 
 			if (level1 == true)
 			{
-				vehicle->SetPos(0, 0, -100);
+				//vehicle->SetPos(0, 0, -100);
+				vehicle->SetPos(70, 0, -85);
 			}
 			if (level2 == true)
 			{
@@ -219,7 +220,7 @@ update_status ModulePlayer::Update(float dt)
 			vehicle->body->setLinearVelocity({ 0,0,0 });
 		if (level1 == true)
 		{
-			vehicle->SetPos(0, 0, -100);
+			vehicle->SetPos(0, 0, -100);			
 		}
 		if (level2 == true)
 		{
@@ -234,6 +235,27 @@ update_status ModulePlayer::Update(float dt)
 			vehicle->SetPos(70, 0, -85);
 		}
 
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (level1 == true) 
+		{
+			level1 = false;
+			level2 = true;
+			vehicle->SetPos(25, 0, -100);
+		}
+		else if (level2 == true)
+		{
+			level2 = false;
+			level3 = true;
+			vehicle->SetPos(50, 30, -85);
+		}
+		else if (level3 == true)
+		{
+			level3 = false;
+			level4 = true;
+			vehicle->SetPos(70, 0, -85);
+		}
 	}
 
 	if (nextLevel == true) 
