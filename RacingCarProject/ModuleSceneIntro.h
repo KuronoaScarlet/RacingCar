@@ -64,6 +64,24 @@ public:
 	PhysBody3D* cube18;
 	PhysBody3D* cube19;
 	PhysBody3D* cube20;
+	PhysBody3D* cube28;
+	PhysBody3D* cube21;
+	PhysBody3D* cube22;
+	PhysBody3D* cube23;
+	PhysBody3D* cube24;
+	PhysBody3D* cube25;
+	PhysBody3D* cube26;
+	PhysBody3D* cube27;
+	PhysBody3D* cube29;
+	PhysBody3D* cube30;
+	PhysBody3D* cube31;
+	PhysBody3D* cube32;
+	PhysBody3D* cube33;
+	PhysBody3D* cube34;
+	PhysBody3D* cube35;
+	PhysBody3D* cube36;
+
+
 
 
 	PhysBody3D* speedCube;
@@ -71,8 +89,10 @@ public:
 	PhysBody3D* sensor;
 	PhysBody3D* sensorLevel2;
 	PhysBody3D* sensorLevel3;
+	PhysBody3D* sensorLevel4;
 	PhysBody3D* sensorStop;
 	PhysBody3D* sensorStop2;
+	PhysBody3D* sensorStop3;
 
 
 };

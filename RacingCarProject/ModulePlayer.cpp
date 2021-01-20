@@ -167,7 +167,7 @@ update_status ModulePlayer::Update(float dt)
 			brake = BRAKE_POWER(3);
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
 		stop = false;
 		vehicle->Turn(90);
@@ -178,7 +178,46 @@ update_status ModulePlayer::Update(float dt)
 		}
 		if (vehicle->GetKmh() != 0)
 			vehicle->body->setLinearVelocity({ 0,0,0 });
-		if (level1 == true) 
+		if (resets <= 10 && resets > 0)
+		{
+			resets = resets - 1;
+
+			if (level1 == true)
+			{
+				vehicle->SetPos(0, 0, -100);
+			}
+			if (level2 == true)
+			{
+				vehicle->SetPos(25, 0, -100);
+			}
+			if (level3 == true)
+			{
+				vehicle->SetPos(50, 30, -85);
+			}
+			if (level4 == true)
+			{
+				vehicle->SetPos(70, 0, -85);
+			}
+		}
+		else
+		{
+			vehicle->SetPos(0, 0, -100);
+			resets = 10;
+		}
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
+	{
+		stop = false;
+		vehicle->Turn(90);
+		vehicle->vehicle->resetSuspension();
+		if (vehicle->body->getLinearVelocity() != 0)
+		{
+			vehicle->body->setAngularVelocity({ 0,0,0 });
+		}
+		if (vehicle->GetKmh() != 0)
+			vehicle->body->setLinearVelocity({ 0,0,0 });
+		if (level1 == true)
 		{
 			vehicle->SetPos(0, 0, -100);
 		}
@@ -188,10 +227,15 @@ update_status ModulePlayer::Update(float dt)
 		}
 		if (level3 == true)
 		{
-			vehicle->SetPos(50, 30, -85);
+			vehicle->SetPos(50, 36, -85);
+		}
+		if (level4 == true)
+		{
+			vehicle->SetPos(70, 0, -85);
 		}
 
 	}
+
 	if (nextLevel == true) 
 	{
 		brake = BRAKE_POWER(3);
@@ -211,8 +255,8 @@ update_status ModulePlayer::Update(float dt)
 
 	App->camera->LookAt(vec3(vehicle->body->getCenterOfMassPosition().getX(), vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ()));
 
-	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	char title[100];
+	sprintf_s(title, "%.1f Km/h || Resets left: %d", vehicle->GetKmh(), resets);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

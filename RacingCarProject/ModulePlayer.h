@@ -27,8 +27,10 @@ public:
 	bool stop = false;
 	bool nextLevel = false;
 	bool speedCube = false;
+	int resets = 10;
 
 	bool level1 = true;
 	bool level2 = false;
 	bool level3 = false;
+	bool level4 = false;
 };
