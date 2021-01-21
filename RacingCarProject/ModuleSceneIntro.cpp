@@ -26,6 +26,12 @@ bool ModuleSceneIntro::Start()
 	sensor->SetAsSensor(true);	
 	sensor->SetPos(0, 2, 20);
 
+	Cube cube_sensor2(20, 1, 1);
+	sensor2 = App->physics->AddBody(cube_sensor2, 0.0f);
+	sensor2->collision_listeners.add(this);
+	sensor2->SetAsSensor(true);
+	sensor2->SetPos(0, 2, -100);
+
 	//Sensor Level 2
 	Cube cube_sensorStop(30, 1, 1);
 	sensorStop = App->physics->AddBody(cube_sensorStop, 0.0f);
@@ -228,6 +234,14 @@ bool ModuleSceneIntro::Start()
 	cube27 = App->physics->AddBody(c27, 0);
 	cube27->SetPos(80, 10, 1000);
 
+	Cube c28(5, 3, 8);
+	cube28 = App->physics->AddBody(c28, 0);
+	cube28->SetPos(1000, 3, 0);
+
+	Cube c29(14, 3, 8);
+	cube29 = App->physics->AddBody(c29, 0);
+	cube29->SetPos(1000, 0, 0);
+
 	return ret;
 }
 
@@ -401,7 +415,8 @@ update_status ModuleSceneIntro::Update(float dt)
 	c22.Render();
 
 	Cube speed_cube2(2, 2, 2);
-	speed_cube2.SetPos(55, 10, 30);
+	speed_cube2.SetRotation(61, { 1,0,0 });
+	speed_cube2.SetPos(55, 5.5F, 30);
 	speed_cube2.color = Green;
 	speed_cube2.Render();
 
@@ -469,6 +484,32 @@ update_status ModuleSceneIntro::Update(float dt)
 	c33.color = White;
 	c33.Render();
 
+	Cube speed_cube3(2, 0.2f, 4);
+	speed_cube3.SetPos(95, 0, 100);
+	speed_cube3.color = Green;
+	speed_cube3.Render();
+
+	Cube speed_cube4(2, 0.2f, 4);
+	speed_cube4.SetPos(70, 0, 300);
+	speed_cube4.color = Green;
+	speed_cube4.Render();
+
+	Cube speed_cube5(2, 0.2f, 4);
+	speed_cube5.SetPos(90, 0, 500);
+	speed_cube5.color = Green;
+	speed_cube5.Render();
+
+	//win
+	Cube c34(5, 3, 8);
+	c34.SetPos(1000, 3, 0);
+	c34.color = Green;
+	c34.Render();
+
+	Cube c35(14, 3, 8);
+	c35.SetPos(1000, 0, 0);
+	c35.color = Green;
+	c35.Render();
+
 
 
 	return UPDATE_CONTINUE;
@@ -489,7 +530,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (body1 == cube3 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = false;
-		App->player->nextLevel = true;
 		App->player->vehicle->SetPos(25, 0, -100);
 		if (App->player->vehicle->body->getLinearVelocity() != 0)
 		{
@@ -501,7 +541,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	}
 	if (body1 == sensorStop && body2 == (PhysBody3D*)App->player->vehicle)
 	{
-		App->player->nextLevel = false;
 		App->player->level1 = false;
 		App->player->level2 = true;
 
@@ -513,7 +552,6 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (body1 == cube8 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = false;
-		App->player->nextLevel = true;
 		App->player->vehicle->SetPos(50, 30, -85);
 		if (App->player->vehicle->body->getLinearVelocity() != 0)
 		{
@@ -525,20 +563,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	}
 	if (body1 == sensorStop2 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
-		App->player->nextLevel = false;
 		App->player->level2 = false;
 		App->player->level3 = true;
 	}
 	if (body1 == sensorLevel4 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
-		App->player->nextLevel = false;
 		App->player->level3 = false;
 		App->player->level4 = true;
 	}
 	if (body1 == cube19 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = false;
-		App->player->nextLevel = true;
 		App->player->vehicle->SetPos(70, 0, -85);
 		if (App->player->vehicle->body->getLinearVelocity() != 0)
 		{
@@ -551,6 +586,24 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	if (body1 == sensorStop4 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = true;
+	}
+
+	if (body1 == cube26 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->stop = false;
+		App->player->vehicle->SetPos(1000, 4, -1);
+		App->player->win = true;
+		if (App->player->vehicle->body->getLinearVelocity() != 0)
+		{
+			App->player->vehicle->body->setAngularVelocity({ 0,0,0 });
+		}
+		if (App->player->vehicle->GetKmh() != 0)
+			App->player->vehicle->body->setLinearVelocity({ 0,0,0 });
+
+	}
+	if (body1 == sensor2 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->stop = false;
 	}
 
 

@@ -117,7 +117,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-	if (!stop) 
+	if (stop == false) 
 	{
 		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
@@ -184,8 +184,7 @@ update_status ModulePlayer::Update(float dt)
 
 			if (level1 == true)
 			{
-				//vehicle->SetPos(0, 0, -100);
-				vehicle->SetPos(70, 0, -85);
+				vehicle->SetPos(0, 0, -100);
 			}
 			if (level2 == true)
 			{
@@ -198,6 +197,13 @@ update_status ModulePlayer::Update(float dt)
 			if (level4 == true)
 			{
 				vehicle->SetPos(70, 0, -85);
+			}
+			if (win == true)
+			{
+				vehicle->SetPos(0, 0, -100);
+				win = false;
+				resets = 10;
+				stop = false;
 			}
 		}
 		else
@@ -240,6 +246,7 @@ update_status ModulePlayer::Update(float dt)
 	{
 		if (level1 == true) 
 		{
+			win = false;
 			level1 = false;
 			level2 = true;
 			vehicle->SetPos(25, 0, -100);
@@ -256,30 +263,56 @@ update_status ModulePlayer::Update(float dt)
 			level4 = true;
 			vehicle->SetPos(70, 0, -85);
 		}
+		else if (level4 == true)
+		{
+			win = true;
+			level4 = false;
+			level0 = true;
+			vehicle->SetPos(1000, 4, 0);
+		}
+		else if (level0 == true)
+		{
+			win = false;
+			level0 = false;
+			level1 = true;
+			vehicle->SetPos(0, 0, -100);
+		}
 	}
 
-	if (nextLevel == true) 
-	{
-		brake = BRAKE_POWER(3);
-	}	
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 
 	vehicle->Render();
 
-	vec3 myCamera;
-	myCamera.x = vehicle->body->getCenterOfMassPosition().getX() + vehicle->vehicle->getForwardVector().x() * -10;
-	myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 5;
-	myCamera.z = vehicle->body->getCenterOfMassPosition().getZ() + vehicle->vehicle->getForwardVector().z() * -10;
-	App->camera->Position = myCamera;
+	if (win == false)
+	{
+		vec3 myCamera;
+		myCamera.x = vehicle->body->getCenterOfMassPosition().getX() + vehicle->vehicle->getForwardVector().x() * -10;
+		myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 5;
+		myCamera.z = vehicle->body->getCenterOfMassPosition().getZ() + vehicle->vehicle->getForwardVector().z() * -10;
+		App->camera->Position = myCamera;
+		char title[100];
+		sprintf_s(title, "%.1f Km/h || Resets left: %d", vehicle->GetKmh(), resets);
+		App->window->SetTitle(title);
 
 
-	App->camera->LookAt(vec3(vehicle->body->getCenterOfMassPosition().getX(), vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ()));
 
-	char title[100];
-	sprintf_s(title, "%.1f Km/h || Resets left: %d", vehicle->GetKmh(), resets);
-	App->window->SetTitle(title);
+		App->camera->LookAt(vec3(vehicle->body->getCenterOfMassPosition().getX(), vehicle->body->getCenterOfMassPosition().getY(), vehicle->body->getCenterOfMassPosition().getZ()));
+	}
+	else
+	{
+		App->camera->Position = vec3(1025, 5, 50);
+		App->camera->LookAt(vec3(1000, 0, 0));
+		char title[100];
+		sprintf_s(title, "Congratulations! You beat the game! Press F2 two times to restart");
+		App->window->SetTitle(title);
+	}
+
+	
+
+	
+	
 
 	return UPDATE_CONTINUE;
 }

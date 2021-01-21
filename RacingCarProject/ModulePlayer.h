@@ -25,7 +25,6 @@ public:
 	float acceleration;
 	float brake;
 	bool stop = false;
-	bool nextLevel = false;
 	bool speedCube = false;
 	int resets = 10;
 
@@ -33,4 +32,6 @@ public:
 	bool level2 = false;
 	bool level3 = false;
 	bool level4 = false;
+	bool level0 = false;
+	bool win = false;
 };
