@@ -82,7 +82,7 @@ bool ModuleSceneIntro::Start()
 	speedCube2 = App->physics->AddBody(speed_cube2, 0.0f);
 	speedCube2->collision_listeners.add(this);
 	speedCube2->SetAsSensor(true);
-	speedCube2->SetPos(55, 10, 30);
+	speedCube2->SetPos(55, 9, 30);
 
 	Cube speed_cube3(2, 2, 2);
 	speedCube3 = App->physics->AddBody(speed_cube3, 0.0f);
@@ -546,6 +546,10 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 	}
 	if (body1 == sensorLevel2 && body2 == (PhysBody3D*)App->player->vehicle)
+	{
+		App->player->stop = true;
+	}
+	if (body1 == sensorLevel3 && body2 == (PhysBody3D*)App->player->vehicle)
 	{
 		App->player->stop = true;
 	}

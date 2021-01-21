@@ -23,7 +23,7 @@ bool ModulePlayer::Start()
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 2, 6);
-	car.chassis_offset.Set(0, 2, 0);
+	car.chassis_offset.Set(0, 1.5f, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 20.88f; //15.88f
 	car.suspensionCompression = 1.83f; //0.83f
@@ -129,7 +129,7 @@ update_status ModulePlayer::Update(float dt)
 			{				
 				if (speedCube == true)
 				{
-					acceleration = 15000.0f;
+					acceleration = 20000.0f;
 					speedCube = false;
 				}
 				else
