@@ -129,6 +129,7 @@ update_status ModulePlayer::Update(float dt)
 			{				
 				if (speedCube == true)
 				{
+					//Acceleration boost with speed cube
 					acceleration = 20000.0f;
 					speedCube = false;
 				}
@@ -169,6 +170,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 	{
+		//When R is pressed, the car stops immediately and resets its position depending on the level you are currently
 		stop = false;
 		vehicle->Turn(90);
 		vehicle->vehicle->resetSuspension();
@@ -215,6 +217,7 @@ update_status ModulePlayer::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN)
 	{
+		//T does the same as R but it is a hard reset if the car is stuck face down so it can reset properly
 		stop = false;
 		vehicle->Turn(90);
 		vehicle->vehicle->resetSuspension();
@@ -224,26 +227,43 @@ update_status ModulePlayer::Update(float dt)
 		}
 		if (vehicle->GetKmh() != 0)
 			vehicle->body->setLinearVelocity({ 0,0,0 });
-		if (level1 == true)
+		if (resets <= 10 && resets > 0)
 		{
-			vehicle->SetPos(0, 0, -100);			
-		}
-		if (level2 == true)
-		{
-			vehicle->SetPos(25, 0, -100);
-		}
-		if (level3 == true)
-		{
-			vehicle->SetPos(50, 36, -85);
-		}
-		if (level4 == true)
-		{
-			vehicle->SetPos(70, 0, -85);
-		}
+			resets = resets - 1;
 
+			if (level1 == true)
+			{
+				vehicle->SetPos(0, 6, -100);
+			}
+			if (level2 == true)
+			{
+				vehicle->SetPos(25, 6, -100);
+			}
+			if (level3 == true)
+			{
+				vehicle->SetPos(50, 36, -85);
+			}
+			if (level4 == true)
+			{
+				vehicle->SetPos(70, 6, -85);
+			}
+			if (win == true)
+			{
+				vehicle->SetPos(0, 6, -100);
+				win = false;
+				resets = 10;
+				stop = false;
+			}
+		}
+		else
+		{
+			vehicle->SetPos(0, 0, -100);
+			resets = 10;
+		}
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
+		//F2 skips your current level
 		if (level1 == true) 
 		{
 			win = false;
@@ -287,6 +307,7 @@ update_status ModulePlayer::Update(float dt)
 
 	if (win == false)
 	{
+		//Camera of the car
 		vec3 myCamera;
 		myCamera.x = vehicle->body->getCenterOfMassPosition().getX() + vehicle->vehicle->getForwardVector().x() * -10;
 		myCamera.y = vehicle->body->getCenterOfMassPosition().getY() + vehicle->vehicle->getForwardVector().y() + 5;
