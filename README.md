@@ -13,3 +13,9 @@ An amazing game of cars and bowling! Grupo Peko has developed it as a response t
 - Shift: Hand Break!
 - F1: Show Colliders and Sensors.
 - F2: Go to the next Level.
+
+## Rules
+- You must crash against the red pillar to pass the level. If you can't, use the reset button to start over!
+- Once you have accelerated, you will get to go through a blue cube. When touched, you will lose the ability to control your vehicle, so aim well!
+- As well! On the ground there are speed boosters to help you complete the levels. Find a way to use them efficiently!
+- Enjoy it!
