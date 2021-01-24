@@ -21,4 +21,4 @@ An amazing game of cars and bowling! Grupo Peko has developed it as a response t
 - Enjoy it!
 
 # Latest version!
-[Download here!]()
+[Download here!](https://github.com/KuronoaScarlet/RacingCar/releases/tag/1.0)
