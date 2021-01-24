@@ -20,5 +20,10 @@ An amazing game of cars and bowling! Grupo Peko has developed it as a response t
 - As well! On the ground there are speed boosters to help you complete the levels. Find a way to use them efficiently!
 - Enjoy it!
 
+## Developers
+- Marc Ruiz
+- Oriol Valverde
+- Ignasi Pardo
+
 # Latest version!
 [Download here!](https://github.com/KuronoaScarlet/RacingCar/releases/tag/1.0)
